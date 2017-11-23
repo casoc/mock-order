@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--数据库驱动-->
+    <!--<classPathEntry location="D:/maven/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar"/>-->
+    <classPathEntry
+            location="D:/mvn_repository/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar"/>
+
+    <context id="Mysql2Tables" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!--suppress MybatisGenerateCustomPluginInspection -->
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+        </plugin>
+
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.28.200.226:3306/mock-order?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true"
+                        userId="higgs" password="higgs_dev">
+        </jdbcConnection>
+
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="com.higgs.mockorder.domain"
+                            targetProject="D:\IdeaProject\mock-order\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="D:\IdeaProject\mock-order\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--生成Dao类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.higgs.mockorder.dao"
+                             targetProject="D:\IdeaProject\mock-order\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--生成对应表及类名-->
+        <table tableName="orders" domainObjectName="OrderDO">
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+
+            <!--oracle 配置-->
+            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
+
+        </table>
+    </context>
+</generatorConfiguration>

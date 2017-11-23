@@ -4,7 +4,7 @@
  */
 package com.higgs.mockorder.service;
 
-import com.higgs.mockorder.dao.OrderDAO;
+import com.higgs.mockorder.dao.OrderDOMapper;
 import com.higgs.mockorder.domain.OrderDO;
 import org.bytesoft.bytetcc.supports.spring.aware.CompensableContextAware;
 import org.bytesoft.compensable.CompensableContext;
@@ -26,16 +26,16 @@ public class OrderServiceConfirm implements OrderService, CompensableContextAwar
     private CompensableContext compensableContext;
 
     @Autowired
-    private OrderDAO orderDAO;
+    private OrderDOMapper orderDOMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean rechargeAmount(Integer userId, Long amount) {
         logger.error("confirm recharge amount for userId:{}, amount:{}", userId, amount);
         Integer orderId = (Integer) compensableContext.getVariable("orderId");
-        OrderDO one = orderDAO.findOne(orderId);
+        OrderDO one = orderDOMapper.selectByPrimaryKey(orderId);
         one.setStatus("SUCCESS");
-        orderDAO.save(one);
+        orderDOMapper.updateByPrimaryKey(one);
         return true;
     }
 

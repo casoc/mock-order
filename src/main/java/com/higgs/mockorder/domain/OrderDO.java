@@ -1,59 +1,73 @@
-/**
- * BrandBigData.com Inc.
- * Copyright (c) 2016 All Rights Reserved.
- */
 package com.higgs.mockorder.domain;
 
 import javax.persistence.*;
 
-/**
- * @author chenshiwei
- * @version $Id: OrderDO.java, v 0.1 2017/11/21 19:23 chenshiwei Exp $
- */
-@Entity
 @Table(name = "orders")
 public class OrderDO {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "user_id")
-    private Integer userId;
-
-    private String  content;
+    private String content;
 
     private String status;
 
+    @Column(name = "user_id")
+    private Integer userId;
+
+    /**
+     * @return id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
+    /**
+     * @return content
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     * @param content
+     */
     public void setContent(String content) {
-        this.content = content;
+        this.content = content == null ? null : content.trim();
     }
 
+    /**
+     * @return status
+     */
     public String getStatus() {
         return status;
     }
 
+    /**
+     * @param status
+     */
     public void setStatus(String status) {
-        this.status = status;
+        this.status = status == null ? null : status.trim();
+    }
+
+    /**
+     * @return user_id
+     */
+    public Integer getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId
+     */
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

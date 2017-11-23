@@ -4,7 +4,7 @@
  */
 package com.higgs.mockorder.service;
 
-import com.higgs.mockorder.dao.OrderDAO;
+import com.higgs.mockorder.dao.OrderDOMapper;
 import com.higgs.mockorder.domain.OrderDO;
 import com.higgs.mockorder.facade.UserFacade;
 import org.bytesoft.bytetcc.supports.spring.aware.CompensableContextAware;
@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService, CompensableContextAware {
     private final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
-    private OrderDAO orderDAO;
+    private OrderDOMapper orderDOMapper;
 
     @Autowired
     private UserFacade userFacade;
@@ -47,8 +47,8 @@ public class OrderServiceImpl implements OrderService, CompensableContextAware {
         orderDO.setUserId(userId);
         orderDO.setStatus("PAYING");
         orderDO.setContent(MessageFormat.format("充值订单,userId:{0}, amount:{1}", userId, amount));
-        OrderDO save = orderDAO.save(orderDO);
-        compensableContext.setVariable("orderId", save.getId());
+        orderDOMapper.insert(orderDO);
+        compensableContext.setVariable("orderId", orderDO.getId());
         Boolean result = userFacade.increaseAmount(userId, amount);
         if (!result) {
             throw new RuntimeException("ERROR");

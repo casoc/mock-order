@@ -4,7 +4,7 @@
  */
 package com.higgs.mockorder.service;
 
-import com.higgs.mockorder.dao.OrderDAO;
+import com.higgs.mockorder.dao.OrderDOMapper;
 import org.bytesoft.bytetcc.supports.spring.aware.CompensableContextAware;
 import org.bytesoft.compensable.CompensableContext;
 import org.slf4j.Logger;
@@ -25,14 +25,14 @@ public class OrderServiceCancel implements OrderService, CompensableContextAware
     private CompensableContext compensableContext;
 
     @Autowired
-    private OrderDAO orderDAO;
+    private OrderDOMapper orderDOMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean rechargeAmount(Integer userId, Long amount) {
         logger.error("cancel recharge amount for userId:{}, amount:{}", userId, amount);
         Integer orderId = (Integer) compensableContext.getVariable("orderId");
-        orderDAO.delete(orderId);
+        orderDOMapper.deleteByPrimaryKey(orderId);
         return true;
     }
 

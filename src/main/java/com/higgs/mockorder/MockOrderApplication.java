@@ -9,14 +9,12 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @ImportResource({ "classpath:bytetcc-supports-springcloud.xml" })
 @Import(SpringCloudConfiguration.class)
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
-@EnableJpaRepositories
 @EnableCircuitBreaker
 @EnableHystrix
 public class MockOrderApplication {
