@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
@@ -40,7 +39,7 @@ public class OrderServiceImpl implements OrderService, CompensableContextAware {
     private CompensableContext compensableContext;
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = RuntimeException.class)
+    @Transactional
     public boolean rechargeAmount(Integer userId, Long amount) {
         logger.error("try recharge amount for userId:{}, amount:{}", userId, amount);
         OrderDO orderDO = new OrderDO();

@@ -1,9 +1,11 @@
 package com.higgs.mockorder.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "orders")
-public class OrderDO {
+public class OrderDO implements Serializable {
+    private static final long serialVersionUID = -8235114437580703580L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

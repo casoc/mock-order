@@ -28,7 +28,7 @@ public class OrderServiceCancel implements OrderService, CompensableContextAware
     private OrderDOMapper orderDOMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional
     public boolean rechargeAmount(Integer userId, Long amount) {
         logger.error("cancel recharge amount for userId:{}, amount:{}", userId, amount);
         Integer orderId = (Integer) compensableContext.getVariable("orderId");

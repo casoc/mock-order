@@ -29,7 +29,7 @@ public class OrderServiceConfirm implements OrderService, CompensableContextAwar
     private OrderDOMapper orderDOMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional
     public boolean rechargeAmount(Integer userId, Long amount) {
         logger.error("confirm recharge amount for userId:{}, amount:{}", userId, amount);
         Integer orderId = (Integer) compensableContext.getVariable("orderId");
