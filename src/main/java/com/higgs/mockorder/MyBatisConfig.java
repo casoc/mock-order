@@ -4,31 +4,36 @@
  */
 package com.higgs.mockorder;
 
+import javax.sql.DataSource;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.bytesoft.bytejta.supports.jdbc.LocalXADataSource;
+import org.bytesoft.bytetcc.TransactionManagerImpl;
+import org.bytesoft.bytetcc.supports.springcloud.config.SpringCloudConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
-
-import javax.sql.DataSource;
 
 /**
  * @author chenshiwei
  * @version $Id: MyBatisConfig.java, v 0.1 2017/11/23 16:15 chenshiwei Exp $
  */
+@Import(SpringCloudConfiguration.class)
 @Configuration
-@MapperScan("com.higgs.mockorder.dao")
+@MapperScan(basePackages = "com.higgs.mockorder.dao")
 public class MyBatisConfig {
 
     @Autowired
     private Environment env;
 
-    @Bean(name = "dataSource")
-    public DataSource getDataSource() {
+    @Bean(name = "mybatisDataSource")
+    public DataSource getDataSource(@Autowired TransactionManagerImpl transactionManager) {
         LocalXADataSource dataSource = new LocalXADataSource();
         dataSource.setDataSource(this.invokeGetDataSource());
+        dataSource.setTransactionManager(transactionManager);
         return dataSource;
     }
 

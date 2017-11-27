@@ -36,6 +36,7 @@ public class OrderServiceConfirm implements OrderService, CompensableContextAwar
         OrderDO one = orderDOMapper.selectByPrimaryKey(orderId);
         one.setStatus("SUCCESS");
         orderDOMapper.updateByPrimaryKey(one);
+//        int i = 1/0;
         return true;
     }
 
