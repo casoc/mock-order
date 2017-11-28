@@ -8,6 +8,7 @@ import com.higgs.mockorder.dao.OrderDOMapper;
 import com.higgs.mockorder.domain.OrderDO;
 import com.higgs.mockorder.facade.UserFacade;
 import org.bytesoft.bytetcc.supports.spring.aware.CompensableContextAware;
+import org.bytesoft.compensable.Compensable;
 import org.bytesoft.compensable.CompensableContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import java.text.MessageFormat;
  * @version $Id: OrderServiceImpl.java, v 0.1 2017/11/21 19:28 chenshiwei Exp $
  */
 @Service("orderService")
+@Compensable(interfaceClass = OrderService.class, confirmableKey = "orderServiceConfirm", cancellableKey = "orderServiceCancel")
 public class OrderServiceImpl implements OrderService, CompensableContextAware {
 
     private final Logger       logger = LoggerFactory.getLogger(OrderServiceImpl.class);
@@ -48,7 +50,7 @@ public class OrderServiceImpl implements OrderService, CompensableContextAware {
         if (!result) {
             throw new RuntimeException("ERROR");
         }
-        //        int i = 1 / 0;
+        int i = 1 / 0;
         return true;
     }
 

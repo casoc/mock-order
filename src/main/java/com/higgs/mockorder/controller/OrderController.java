@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @version $Id: OrderController.java, v 0.1 2017/11/21 19:30 chenshiwei Exp $
  */
 @RestController
-@Compensable(interfaceClass = OrderService.class, confirmableKey = "orderServiceConfirm", cancellableKey = "orderServiceCancel")
+@Compensable(interfaceClass = OrderService.class)
 public class OrderController {
 
     @Resource(name = "orderService")
